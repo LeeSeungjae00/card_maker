@@ -8,12 +8,8 @@ function App({authService}) {
     <div className={styles.app}>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element = {<Login authService={authService} />}>
-                
-          </Route>
-          <Route path = "/maker" element = {<Maker></Maker>}>
-            
-          </Route>
+          <Route exact path="/" element = {<Login authService={authService} />}></Route>
+          <Route path = "/maker" element = {<Maker authService={authService}></Maker>}></Route>
         </Routes>
       </BrowserRouter>
       
