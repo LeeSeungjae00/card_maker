@@ -54,12 +54,17 @@ export default function Maker({ authService }) {
             }
         })
     })
+
+    const addCard = (card) => {
+        const update = [...cards, card];
+        setCards(update);
+    }
     return (
         <section className = {styles.maker}>
             <Header></Header>
             <button onClick={onLogout}></button>
             <div className={styles.container}>
-                <Editor cards= {cards}></Editor>
+                <Editor cards= {cards} addCard = {addCard}></Editor>
                 <Preview cards = {cards}></Preview>
             </div>
             <Footer></Footer>
