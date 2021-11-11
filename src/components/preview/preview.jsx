@@ -7,7 +7,7 @@ export default function Preview({cards}) {
         <section className = {styles.preview}>
             <h1 className = {styles.title}>Card Maker</h1>
             <ul className = {styles.cards}>
-                {cards.map(card => <Card card = {card}></Card>)}
+                {Object.keys(cards).map(key => <Card key= {key} card = {cards[key]}></Card>)}
             </ul>
         </section>
     )

@@ -8,8 +8,8 @@ import styles from './maker.module.css'
 
 export default function Maker({ authService }) {
     const naviagate = useNavigate();
-    const [cards, setCards] = useState([
-        {
+    const [cards, setCards] = useState({
+        '1' : {
             id : '1',
             name : 'SJ',
             company : 'none',
@@ -20,7 +20,7 @@ export default function Maker({ authService }) {
             fileName : 'none,',
             fileURL : null
         },
-        {
+        '2' : {
             id : '2',
             name : 'SJ2',
             company : 'none',
@@ -31,7 +31,7 @@ export default function Maker({ authService }) {
             fileName : 'none,',
             fileURL : null
         },
-        {
+        '3' : {
             id : '3',
             name : 'SJ3',
             company : 'none',
@@ -42,7 +42,7 @@ export default function Maker({ authService }) {
             fileName : 'none,',
             fileURL : null
         },
-    ]);
+    });
     const onLogout = () => {
         authService.logout();
     }
@@ -55,16 +55,26 @@ export default function Maker({ authService }) {
         })
     })
 
-    const addCard = (card) => {
-        const update = [...cards, card];
-        setCards(update);
+    const createOrUpdateCard = (card) => {
+        setCards(cards => {
+            const updated = {...cards};
+            updated[card.id] = card;
+            return updated;
+        });
+    }
+    const deleteCard = (card) => {
+        setCards(cards => {
+            const updated = {...cards};
+            delete updated[card.id];
+            return updated;
+        });
     }
     return (
         <section className = {styles.maker}>
             <Header></Header>
             <button onClick={onLogout}></button>
             <div className={styles.container}>
-                <Editor cards= {cards} addCard = {addCard}></Editor>
+                <Editor cards= {cards} addCard = {createOrUpdateCard} updateCard = {createOrUpdateCard} deleteCard = {deleteCard}></Editor>
                 <Preview cards = {cards}></Preview>
             </div>
             <Footer></Footer>
