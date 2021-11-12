@@ -6,7 +6,7 @@ import Header from '../header/header'
 import Preview from '../preview/preview'
 import styles from './maker.module.css'
 
-export default function Maker({ authService }) {
+export default function Maker({ FileInput ,authService }) {
     const naviagate = useNavigate();
     const [cards, setCards] = useState({
         '1' : {
@@ -74,7 +74,7 @@ export default function Maker({ authService }) {
             <Header></Header>
             <button onClick={onLogout}></button>
             <div className={styles.container}>
-                <Editor cards= {cards} addCard = {createOrUpdateCard} updateCard = {createOrUpdateCard} deleteCard = {deleteCard}></Editor>
+                <Editor FileInput = {FileInput} cards= {cards} addCard = {createOrUpdateCard} updateCard = {createOrUpdateCard} deleteCard = {deleteCard}></Editor>
                 <Preview cards = {cards}></Preview>
             </div>
             <Footer></Footer>

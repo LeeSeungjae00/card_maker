@@ -1,9 +1,9 @@
+import { updateEmail } from 'firebase/auth';
 import React from 'react'
 import Button from '../button/button';
-import ImageFileInput from '../image_file_input/image_file_input';
 import styles from './card_edit_form.module.css'
 
-export default function CardEditForm({ card , updateCard, deleteCard}) {
+export default function CardEditForm({ FileInput , card , updateCard, deleteCard}) {
     const { name, company, title, email, message, theme, fileName, fileURL } = card;
     const onChange = (event) => {
         if(event.currentTarget == null){
@@ -15,6 +15,15 @@ export default function CardEditForm({ card , updateCard, deleteCard}) {
             [event.currentTarget.name] : event.currentTarget.value,
         })
     }
+
+    const onFileChange = file => {
+        updateCard({
+            ...card,
+            fileName : file.name,
+            fileURL : file.url,
+        })
+    }
+
     const onSubmit = (event) => {
         event.preventDefault();
         deleteCard(card);
@@ -32,7 +41,7 @@ export default function CardEditForm({ card , updateCard, deleteCard}) {
             <input className={styles.input} type="text" name="email" value={email}  onChange = {onChange}/>
             <textarea className={styles.textarea} name="message" value={message} onChange = {onChange}></textarea>
             <div className={styles.fileInput}>
-                <ImageFileInput></ImageFileInput>
+                <FileInput name = {fileName} onFileChange={onFileChange}></FileInput>
 
             </div>
             <Button name="Delete" onClick={onSubmit}></Button>
