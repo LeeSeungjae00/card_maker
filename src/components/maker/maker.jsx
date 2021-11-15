@@ -17,7 +17,7 @@ export default function Maker({ FileInput ,authService }) {
             title : 'web foront end Engineer',
             email : 'seungjae2668@naver.com',
             message : 'go for it',
-            fileName : 'none,',
+            fileName : null,
             fileURL : null
         },
         '2' : {
@@ -28,7 +28,7 @@ export default function Maker({ FileInput ,authService }) {
             title : 'web foront end Engineer',
             email : 'seungjae2668@naver.com',
             message : 'go for it',
-            fileName : 'none,',
+            fileName : null,
             fileURL : null
         },
         '3' : {
@@ -39,7 +39,7 @@ export default function Maker({ FileInput ,authService }) {
             title : 'web foront end Engineer',
             email : 'seungjae2668@naver.com',
             message : 'go for it',
-            fileName : 'none,',
+            fileName : null,
             fileURL : null
         },
     });
