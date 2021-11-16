@@ -1,55 +1,25 @@
 import React, { useEffect , useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate , useLocation } from 'react-router-dom'
 import Editor from '../editor/editor'
 import Footer from '../footer/footer'
 import Header from '../header/header'
 import Preview from '../preview/preview'
 import styles from './maker.module.css'
 
-export default function Maker({ FileInput ,authService }) {
+export default function Maker({ FileInput ,authService , cardRepository }) {
+    const historyState = useLocation().state;
     const naviagate = useNavigate();
-    const [cards, setCards] = useState({
-        '1' : {
-            id : '1',
-            name : 'SJ',
-            company : 'none',
-            theme : 'dark',
-            title : 'web foront end Engineer',
-            email : 'seungjae2668@naver.com',
-            message : 'go for it',
-            fileName : null,
-            fileURL : null
-        },
-        '2' : {
-            id : '2',
-            name : 'SJ2',
-            company : 'none',
-            theme : 'light',
-            title : 'web foront end Engineer',
-            email : 'seungjae2668@naver.com',
-            message : 'go for it',
-            fileName : null,
-            fileURL : null
-        },
-        '3' : {
-            id : '3',
-            name : 'SJ3',
-            company : 'none',
-            theme : 'colorful',
-            title : 'web foront end Engineer',
-            email : 'seungjae2668@naver.com',
-            message : 'go for it',
-            fileName : null,
-            fileURL : null
-        },
-    });
+    const [cards, setCards] = useState({});
+    const [userId, setUserId] = useState(historyState && historyState.id)
     const onLogout = () => {
         authService.logout();
     }
 
     useEffect(() => {
         authService.onAuthChange(user => {
-            if (!user) {
+            if (user) {
+                setUserId(user.uid)
+            }else{
                 naviagate('/');
             }
         })
@@ -61,6 +31,7 @@ export default function Maker({ FileInput ,authService }) {
             updated[card.id] = card;
             return updated;
         });
+        cardRepository.saveCard(userId, card);
     }
     const deleteCard = (card) => {
         setCards(cards => {
@@ -68,11 +39,12 @@ export default function Maker({ FileInput ,authService }) {
             delete updated[card.id];
             return updated;
         });
+        cardRepository.removeCard(userId, card);
     }
     return (
         <section className = {styles.maker}>
             <Header></Header>
-            <button onClick={onLogout}></button>
+            <button className = {styles.logout} onClick={onLogout}></button>
             <div className={styles.container}>
                 <Editor FileInput = {FileInput} cards= {cards} addCard = {createOrUpdateCard} updateCard = {createOrUpdateCard} deleteCard = {deleteCard}></Editor>
                 <Preview cards = {cards}></Preview>
