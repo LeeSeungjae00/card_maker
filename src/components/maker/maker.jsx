@@ -20,7 +20,7 @@ export default function Maker({ FileInput ,authService , cardRepository }) {
             return;
         }
         
-        cardRepository.syncCard(userId, data => { console.log(data); setCards(data)})
+        cardRepository.syncCard(userId, data => {setCards(data)})
     },[userId,cardRepository])
 
     useEffect(() => {

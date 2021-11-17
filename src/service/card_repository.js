@@ -18,7 +18,6 @@ class CardRepository {
     const starCountRef = ref(this.db, `${userId}/cards`);
     onValue(starCountRef, (snapshot) => {
       const value = snapshot.val();
-      console.log(snapshot.val());
       value && onUpdate(value)
     });
   }
