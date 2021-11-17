@@ -1,18 +1,27 @@
-import firebaseApp from "./firebase";
-import { getDatabase, ref, set ,remove} from "firebase/database";
+import "./firebase";
+import { getDatabase, ref, set, remove, onValue } from "firebase/database";
 
 class CardRepository {
-    saveCard(userId,card){
-        const db = getDatabase();
-        set(ref(db, `${userId}/cards/${card.id}`), {
-          card
-        });
-      
-    }
-    removeCard(userId, card){
-      const db = getDatabase();
-        remove(ref(db, `${userId}/cards/${card.id}`));
-    }
+  db = getDatabase();
+
+  saveCard(userId, card) {
+    set(ref(this.db, `${userId}/cards`), {
+      [card.id] : card
+    });
+
+  }
+  removeCard(userId, card) {
+    remove(ref(this.db, `${userId}/cards/${card.id}`));
+  }
+
+  syncCard(userId, onUpdate) {
+    const starCountRef = ref(this.db, `${userId}/cards`);
+    onValue(starCountRef, (snapshot) => {
+      const value = snapshot.val();
+      console.log(snapshot.val());
+      value && onUpdate(value)
+    });
+  }
 }
 
 export default CardRepository

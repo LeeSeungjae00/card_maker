@@ -1,4 +1,4 @@
-import firebaseApp from "./firebase";
+import "./firebase";
 import { GoogleAuthProvider, getAuth, signInWithPopup, GithubAuthProvider, onAuthStateChanged ,signOut} from "firebase/auth";
 
 const auth = getAuth();

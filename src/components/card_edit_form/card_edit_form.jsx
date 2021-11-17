@@ -1,4 +1,3 @@
-import { updateEmail } from 'firebase/auth';
 import React from 'react'
 import Button from '../button/button';
 import styles from './card_edit_form.module.css'
@@ -33,9 +32,9 @@ export default function CardEditForm({ FileInput , card , updateCard, deleteCard
             <input className={styles.input} type="text" name="name" value={name}  onChange = {onChange}/>
             <input className={styles.input} type="text" name="company" value={company}  onChange = {onChange}/>
             <select className={styles.select} name="theme" value={theme} onChange = {onChange}>
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-                <option value="colorful">Colorful</option>
+                <option value="light">light</option>
+                <option value="dark">dark</option>
+                <option value="colorful">colorful</option>
             </select>
             <input className={styles.input} type="text" name="title" value={title}  onChange = {onChange}/>
             <input className={styles.input} type="text" name="email" value={email}  onChange = {onChange}/>

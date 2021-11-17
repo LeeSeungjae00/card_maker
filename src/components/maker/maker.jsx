@@ -16,6 +16,14 @@ export default function Maker({ FileInput ,authService , cardRepository }) {
     }
 
     useEffect(() => {
+        if (!userId) {
+            return;
+        }
+        
+        cardRepository.syncCard(userId, data => { console.log(data); setCards(data)})
+    },[userId,cardRepository])
+
+    useEffect(() => {
         authService.onAuthChange(user => {
             if (user) {
                 setUserId(user.uid)
@@ -23,7 +31,7 @@ export default function Maker({ FileInput ,authService , cardRepository }) {
                 naviagate('/');
             }
         })
-    })
+    },[authService,naviagate])
 
     const createOrUpdateCard = (card) => {
         setCards(cards => {
