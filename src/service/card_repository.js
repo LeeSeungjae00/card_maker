@@ -5,9 +5,7 @@ class CardRepository {
   db = getDatabase();
 
   saveCard(userId, card) {
-    set(ref(this.db, `${userId}/cards`), {
-      [card.id] : card
-    });
+    set(ref(this.db, `${userId}/cards/${card.id}`), card);
 
   }
   removeCard(userId, card) {

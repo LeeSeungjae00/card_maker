@@ -1,8 +1,9 @@
-import React from 'react'
+import React , {memo} from 'react'
 import stlyes from './card.module.css'
 
-const DEFAULT_IMAGE = '/images/default_logo.png'
-export default function Card({ card }) {
+const DEFAULT_IMAGE = '/images/default_logo.png';
+
+const Card = memo(({ card }) => {
     const { name, company, title, email, message, theme, fileURL } = card;
     const url = fileURL || DEFAULT_IMAGE;
     return (
@@ -17,7 +18,7 @@ export default function Card({ card }) {
             </div>
         </li>
     )
-}
+});
 
 
 const getStyles = (theme) => {
@@ -32,3 +33,5 @@ const getStyles = (theme) => {
             throw new Error(`unkown theme : ${theme}`)
     }
 }
+
+export default Card;
